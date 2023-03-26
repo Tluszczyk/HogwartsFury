@@ -27,6 +27,15 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 velocity = CombineKeyVelocities();
         GetPlayerBody().velocity = NormalizeToDefaultSpeed(velocity);
+        FlipAccordingToVelocity();
+    }
+
+    private void FlipAccordingToVelocity() {
+        if (GetPlayerBody().velocity.x > 0) {
+            GetComponent<SpriteRenderer>().flipX = true;
+        } else if (GetPlayerBody().velocity.x < 0) {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 
     private Vector3 CombineKeyVelocities()
@@ -50,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
         } else {
             return velocity;
         }
-
     }
 
     Rigidbody2D GetPlayerBody()
