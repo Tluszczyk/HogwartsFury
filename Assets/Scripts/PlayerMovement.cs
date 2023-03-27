@@ -1,11 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     public const int DEFAULT_SPEED = 4;
+
+    PlayerInput playerInput;
 
     Vector3 STATIONARY = new Vector3(0, 0, 0);
 
@@ -20,13 +21,19 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Debug.Log("Hello, world!");
+
+        playerInput = GetComponent<PlayerInput>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 velocity = CombineKeyVelocities();
-        GetPlayerBody().velocity = NormalizeToDefaultSpeed(velocity);
+        Vector3 velocity_keys = CombineKeyVelocities();
+        Vector3 velocity_gamepad = GetGamepadVelocity();
+
+        Vector3 velocity = NormalizeToDefaultSpeed( velocity_keys + velocity_gamepad );
+        
+        GetPlayerBody().velocity = velocity;
         FlipAccordingToDirection();
     }
 
@@ -37,6 +44,13 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = true;
 
         else GetComponent<SpriteRenderer>().flipX = false;
+    }
+
+    private Vector3 GetGamepadVelocity()
+    {
+        Vector2 gamepadInput = playerInput.actions["Move"].ReadValue<Vector2>();
+
+        return new Vector3(gamepadInput.x, gamepadInput.y, 0);
     }
 
     private Vector3 CombineKeyVelocities()
