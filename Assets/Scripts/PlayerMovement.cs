@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    const int DEFAULT_SPEED = 4;
+    public const int DEFAULT_SPEED = 4;
 
     Vector3 STATIONARY = new Vector3(0, 0, 0);
 
@@ -27,15 +27,16 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 velocity = CombineKeyVelocities();
         GetPlayerBody().velocity = NormalizeToDefaultSpeed(velocity);
-        FlipAccordingToVelocity();
+        FlipAccordingToDirection();
     }
 
-    private void FlipAccordingToVelocity() {
-        if (GetPlayerBody().velocity.x > 0) {
+    private void FlipAccordingToDirection() {
+        bool isTargetToTheRight = GetPlayerBody().velocity.x > 0;
+
+        if ( isTargetToTheRight )
             GetComponent<SpriteRenderer>().flipX = true;
-        } else if (GetPlayerBody().velocity.x < 0) {
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
+
+        else GetComponent<SpriteRenderer>().flipX = false;
     }
 
     private Vector3 CombineKeyVelocities()
