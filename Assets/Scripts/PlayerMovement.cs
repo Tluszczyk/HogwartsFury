@@ -6,16 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public const int DEFAULT_SPEED = 4;
 
-    PlayerInput playerInput;
-
-    Vector3 STATIONARY = new Vector3(0, 0, 0);
-
-    Dictionary<string, Vector3> keysToVelocity = new Dictionary<string, Vector3>() {
-        {"up", Vector3.up},
-        {"down", Vector3.down},
-        {"left", Vector3.left},
-        {"right", Vector3.right}
-    };
+    private Rigidbody2D playerBody;
+    private PlayerInput playerInput;
+    private SpriteRenderer playerRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -23,61 +16,53 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Hello, world!");
 
         playerInput = GetComponent<PlayerInput>();
+        playerBody = GetComponent<Rigidbody2D>();
+        playerRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 velocity_keys = CombineKeyVelocities();
-        Vector3 velocity_gamepad = GetGamepadVelocity();
+        var velocity_keys = CombineKeyVelocities();
+        var velocity_gamepad = GetGamepadVelocity();
 
-        Vector3 velocity = NormalizeToDefaultSpeed( velocity_keys + velocity_gamepad );
-        
-        GetPlayerBody().velocity = velocity;
+        var velocity = NormalizeToDefaultSpeed(velocity_keys + velocity_gamepad);
+
+        playerBody.velocity = velocity;
         FlipAccordingToDirection();
     }
 
-    private void FlipAccordingToDirection() {
-        bool isTargetToTheRight = GetPlayerBody().velocity.x > 0;
+    private void FlipAccordingToDirection()
+    {
+        bool isTargetToTheRight = playerBody.velocity.x > 0;
 
-        if ( isTargetToTheRight )
-            GetComponent<SpriteRenderer>().flipX = true;
+        if (isTargetToTheRight)
+            playerRenderer.flipX = true;
 
-        else GetComponent<SpriteRenderer>().flipX = false;
+        else playerRenderer.flipX = false;
     }
 
-    private Vector3 GetGamepadVelocity()
+    private Vector2 GetGamepadVelocity()
     {
-        Vector2 gamepadInput = playerInput.actions["Move"].ReadValue<Vector2>();
-
-        return new Vector3(gamepadInput.x, gamepadInput.y, 0);
+        return playerInput.actions["Move"].ReadValue<Vector2>();
     }
 
-    private Vector3 CombineKeyVelocities()
+    private Vector2 CombineKeyVelocities()
     {
-        var currentVelocity = STATIONARY;
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        var vertical = Input.GetAxisRaw("Vertical");
+        return new Vector2(horizontal, vertical);
+    }
 
-        foreach (var (key, velocity) in keysToVelocity)
+    private Vector2 NormalizeToDefaultSpeed(Vector2 velocity)
+    {
+        if (velocity.magnitude != 0)
         {
-            if (Input.GetKey(key))
-            {
-                currentVelocity = currentVelocity + velocity;
-            }
-        }
-
-        return currentVelocity;
-    }
-
-    Vector3 NormalizeToDefaultSpeed(Vector3 velocity) {
-        if (velocity.magnitude != 0) {
             return velocity / (velocity.magnitude / DEFAULT_SPEED);
-        } else {
+        }
+        else
+        {
             return velocity;
         }
-    }
-
-    Rigidbody2D GetPlayerBody()
-    {
-        return GetComponent<Rigidbody2D>();
     }
 }

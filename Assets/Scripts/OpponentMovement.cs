@@ -3,20 +3,26 @@ using UnityEngine;
 public class OpponentMovement : MonoBehaviour
 {
     public Transform target;
+    private Rigidbody2D opponentBody;
+    private SpriteRenderer opponentRenderer;
 
     public const int DEFAULT_SPEED = 1;
     public const float MAX_DISTANCE = 1f;
 
-    // Start is called before the first frame update
+    void Start() {
+        opponentBody = GetComponent<Rigidbody2D>();
+        opponentRenderer = GetComponent<SpriteRenderer>();
+    }
+
     void Update()
     {
         Vector3 velocity = (target.position - transform.position).normalized;
         velocity = NormalizeToDefaultSpeed(velocity);
         
         if ( !IsCloseToTarget() ) {
-            GetPlayerBody().velocity = velocity;
+            opponentBody.velocity = velocity;
         } else {
-            GetPlayerBody().velocity = Vector3.zero;
+            opponentBody.velocity = Vector2.zero;
         }
 
         FlipAccordingToDirection();
@@ -26,12 +32,12 @@ public class OpponentMovement : MonoBehaviour
         bool isTargetToTheRight = target.position.x > transform.position.x;
 
         if ( isTargetToTheRight )
-            GetComponent<SpriteRenderer>().flipX = true;
+            opponentRenderer.flipX = true;
 
-        else GetComponent<SpriteRenderer>().flipX = false;
+        else opponentRenderer.flipX = false;
     }
 
-    Vector3 NormalizeToDefaultSpeed(Vector3 velocity) {
+    Vector2 NormalizeToDefaultSpeed(Vector2 velocity) {
         if (velocity.magnitude != 0) {
             return velocity / (velocity.magnitude / DEFAULT_SPEED);
         } else {
@@ -41,10 +47,5 @@ public class OpponentMovement : MonoBehaviour
 
     bool IsCloseToTarget() {
         return Vector3.Distance(transform.position, target.position) < MAX_DISTANCE;
-    }
-
-    Rigidbody2D GetPlayerBody()
-    {
-        return GetComponent<Rigidbody2D>();
     }
 }
