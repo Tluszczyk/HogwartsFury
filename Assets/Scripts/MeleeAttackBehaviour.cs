@@ -1,10 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeAttackBehaviour : MonoBehaviour
 {
-    [SerializeField] private HealthBehaviour playerHealth;
+    private HealthBehaviour playerHealth;
+
+
+    public void SetPlayerHealth(HealthBehaviour playerHealth) {
+        this.playerHealth = playerHealth;
+    }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {

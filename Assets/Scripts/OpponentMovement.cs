@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class OpponentMovement : MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
     private Rigidbody2D opponentBody;
     private SpriteRenderer opponentRenderer;
 
     public const int DEFAULT_SPEED = 1;
     public const float MAX_DISTANCE = 1f;
+
+
+    public void SetTarget(Transform target) {
+        this.target = target;
+    }
+
 
     void Start() {
         opponentBody = GetComponent<Rigidbody2D>();
