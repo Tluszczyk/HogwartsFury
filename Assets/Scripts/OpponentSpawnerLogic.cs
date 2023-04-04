@@ -15,12 +15,6 @@ public class OpponentSpawnerLogic : MonoBehaviour
         }
     }
 
-    public void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            spawnOpponent();
-        }
-    }
-
     public void spawnOpponent()
     {
         int spawnAreaIndex = Random.Range(0, spawnAreas.Count);
