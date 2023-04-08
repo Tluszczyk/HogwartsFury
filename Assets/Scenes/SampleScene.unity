@@ -387,7 +387,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 955119535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c88fe57a4d21f1dc6a3f2008e55e1633, type: 3}
+  m_Script: {fileID: 11500000, guid: da23c96946e3fdccfb3f12a805578038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   opponentSpawner: {fileID: 1721507706}
@@ -581,6 +581,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032100804}
   m_CullTransparentMesh: 1
+--- !u!1 &1112932394 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1088459392799342823, guid: de2c327e0eaa5da09ad5575c62df247b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1088459393641177288}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1112932401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112932394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34008c7d2e96721f960bde0226c432e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireballPrefab: {fileID: 3078999218519702845, guid: 906b6f788ad4025e38f2587a58b90d5e,
+    type: 3}
 --- !u!1 &1119572154
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,9 +612,10 @@ GameObject:
   - component: {fileID: 1119572155}
   - component: {fileID: 1119572157}
   - component: {fileID: 1119572156}
+  - component: {fileID: 1119572158}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Tilemap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4825,6 +4846,20 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1119572158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119572154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7976dc678d5afcd480630100f316a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 1119572157}
+  grid: {fileID: 447474635}
 --- !u!1 &1182484594
 GameObject:
   m_ObjectHideFlags: 0

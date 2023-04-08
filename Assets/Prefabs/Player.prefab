@@ -164,6 +164,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: -20
   healthBar: {fileID: 1088459394341524761}
+  self: {fileID: 1088459392799342823}
 --- !u!114 &1088459392799342846
 MonoBehaviour:
   m_ObjectHideFlags: 0

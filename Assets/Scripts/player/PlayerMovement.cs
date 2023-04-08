@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D playerBody;
     private PlayerInput playerInput;
     private SpriteRenderer playerRenderer;
+    private HealthBehaviour health;
+    public Vector2 LastDirection { get; private set; } = new Vector2(-1, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -15,18 +17,32 @@ public class PlayerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerBody = GetComponent<Rigidbody2D>();
         playerRenderer = GetComponent<SpriteRenderer>();
+        health = GetComponent<HealthBehaviour>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        var velocity_keys = CombineKeyVelocities();
-        var velocity_gamepad = GetGamepadVelocity();
+        if (!health.isDead())
+        {
+            var combinedVelocity = CombineKeyVelocities() + GetGamepadVelocity();
+            UpdateLastDirection(combinedVelocity);
 
-        var velocity = NormalizeToDefaultSpeed(velocity_keys + velocity_gamepad);
+            playerBody.velocity = NormalizeToDefaultSpeed(combinedVelocity);
+            FlipAccordingToDirection();
+        }
+        else
+        {
+            playerBody.velocity = Vector2.zero;
+        }
+    }
 
-        playerBody.velocity = velocity;
-        FlipAccordingToDirection();
+    private void UpdateLastDirection(Vector2 combinedVelocity)
+    {
+        if (combinedVelocity != Vector2.zero)
+        {
+            LastDirection = combinedVelocity.normalized;
+        }
     }
 
     private void FlipAccordingToDirection()
