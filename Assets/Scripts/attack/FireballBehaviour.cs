@@ -15,7 +15,8 @@ public class FireballBehaviour : MonoBehaviour
         fireballRenderer = GetComponent<SpriteRenderer>();
         fireballBody.velocity = DEFAULT_SPEED * direction.normalized;
         map = GameObject.FindGameObjectWithTag("Tilemap").GetComponent<MapBehaviour>();
-        FlipAccordingToDirection();
+        
+        RotateAccordingToDirection();
     }
 
     public void Update()
@@ -26,9 +27,10 @@ public class FireballBehaviour : MonoBehaviour
         }
     }
 
-    private void FlipAccordingToDirection()
+    private void RotateAccordingToDirection()
     {
-        fireballRenderer.flipX = fireballBody.velocity.x > 0;
+        fireballRenderer.flipX = true;
+        transform.Rotate(0, 0, Mathf.Atan2(fireballBody.velocity.y, fireballBody.velocity.x) * Mathf.Rad2Deg);
     }
 }
 

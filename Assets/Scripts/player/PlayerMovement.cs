@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FlipAccordingToDirection()
     {
-        bool isTargetToTheRight = playerBody.velocity.x > 0;
+        bool isTargetToTheRight = this.LastDirection.x > 0;
 
         if (isTargetToTheRight)
             playerRenderer.flipX = true;
