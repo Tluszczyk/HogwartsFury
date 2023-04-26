@@ -17,8 +17,16 @@ public class AttackManager : MonoBehaviour
 
     public void Update()
     {
+        if (Input.GetButton("Fire1"))
+        {
+            Fire();
+        }
+    }
+
+    public void Fire()
+    {
         var now = DateTime.Now;
-        if (Input.GetButton("Fire1") && now > lastSpell.AddMilliseconds(FireballBehaviour.SPELL_OFFSET_MS))
+        if (now > lastSpell.AddMilliseconds(FireballBehaviour.SPELL_OFFSET_MS))
         {
             SpawnFireball();
             lastSpell = now;
@@ -27,6 +35,13 @@ public class AttackManager : MonoBehaviour
 
     private void SpawnFireball()
     {
+        if (player == null) {
+        Debug.Log("HIIIII");
+        }
+
+        if (playerMovement == null) {
+        Debug.Log("HIIIII2");
+        }
         var lastPlayerDirection = playerMovement.LastDirection;
         var spawnPosition = player.transform.localPosition + PLAYER_OFFSET * new Vector3(lastPlayerDirection.x, lastPlayerDirection.y, 0);
         var fireball = Instantiate(fireballPrefab, spawnPosition, Quaternion.identity);

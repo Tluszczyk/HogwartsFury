@@ -4,9 +4,7 @@ public class HealthBehaviour : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
-    public bool destroyOnDeath;
     public HealthBarLogic healthBar;
-    public GameObject self;
 
     // Start is called before the first frame update
     void Start()
@@ -20,16 +18,17 @@ public class HealthBehaviour : MonoBehaviour
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
 
-        if (destroyOnDeath && currentHealth <= 0)
-        {
-            Destroy(self);
-        }
     }
 
     public void Heal(int amount)
     {
         currentHealth += amount;
         healthBar.SetHealth(currentHealth);
+    }
+
+    public int GetHealth()
+    {
+        return currentHealth;
     }
 
     public bool isDead()

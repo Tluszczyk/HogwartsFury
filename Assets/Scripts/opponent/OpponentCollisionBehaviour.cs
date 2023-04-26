@@ -1,17 +1,22 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class OpponentCollisionBehaviour : MonoBehaviour
 {
+    public GameObject self;
     private const int ATTACK_DELAY_MS = 1000;
+    private const int OPPONENT_SCORE = 10;
     private HealthBehaviour ownHealth;
     private HealthBehaviour playerHealth;
+    private ScoreTracker tracker;
     private DateTime lastHit = DateTime.Now;
 
-    public void Init(HealthBehaviour playerHealth)
+    public void Init(HealthBehaviour playerHealth, ScoreTracker tracker)
     {
         this.playerHealth = playerHealth;
         this.ownHealth = GetComponent<HealthBehaviour>();
+        this.tracker = tracker;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -25,6 +30,12 @@ public class OpponentCollisionBehaviour : MonoBehaviour
         {
             ownHealth.TakeDamage(10);
             Destroy(collision.gameObject);
+
+            if (ownHealth.GetHealth() <= 0)
+            {
+                Destroy(self);
+                tracker.UpdateScore(OPPONENT_SCORE);
+            }
         }
     }
 

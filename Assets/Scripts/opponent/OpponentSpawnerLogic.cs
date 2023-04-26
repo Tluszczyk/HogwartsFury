@@ -29,7 +29,8 @@ public class OpponentSpawnerLogic : MonoBehaviour
 
         GameObject opponent = Instantiate(opponentPrefab, spawnPosition, Quaternion.identity);
 
-        opponent.GetComponent<OpponentMovement>().SetTarget(GameObject.Find("Player").transform);
-        opponent.GetComponent<OpponentCollisionBehaviour>().Init(GameObject.Find("Player").GetComponent<HealthBehaviour>());
+        var player = GameObject.Find("Player");
+        opponent.GetComponent<OpponentMovement>().SetTarget(player.transform);
+        opponent.GetComponent<OpponentCollisionBehaviour>().Init(player.GetComponent<HealthBehaviour>(), player.GetComponent<ScoreTracker>());
     }
 }

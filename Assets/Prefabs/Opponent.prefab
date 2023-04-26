@@ -163,9 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  destroyOnDeath: 1
   healthBar: {fileID: 4364743670840772513}
-  self: {fileID: 4364743670225938580}
 --- !u!114 &4364743670225938589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22533b090896985039b8a1262f64293f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  self: {fileID: 4364743670225938580}
 --- !u!1 &4364743670840772542
 GameObject:
   m_ObjectHideFlags: 0
