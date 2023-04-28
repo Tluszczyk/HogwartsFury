@@ -7,6 +7,7 @@ TagManager:
   - OpponentSpawnArea
   - Bullet
   - Tilemap
+  - Opponent
   layers:
   - Default
   - TransparentFX

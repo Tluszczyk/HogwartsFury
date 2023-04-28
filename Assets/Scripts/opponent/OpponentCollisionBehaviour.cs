@@ -4,19 +4,20 @@ using System;
 
 public class OpponentCollisionBehaviour : MonoBehaviour
 {
-    public GameObject self;
     private const int ATTACK_DELAY_MS = 1000;
     private const int OPPONENT_SCORE = 10;
     private HealthBehaviour ownHealth;
     private HealthBehaviour playerHealth;
     private ScoreTracker tracker;
     private DateTime lastHit = DateTime.Now;
+    private RestartHandler restartHandler;
 
-    public void Init(HealthBehaviour playerHealth, ScoreTracker tracker)
+    public void Init(HealthBehaviour playerHealth, ScoreTracker tracker, RestartHandler restartHandler)
     {
         this.playerHealth = playerHealth;
         this.ownHealth = GetComponent<HealthBehaviour>();
         this.tracker = tracker;
+        this.restartHandler = restartHandler;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -25,6 +26,7 @@ public class OpponentCollisionBehaviour : MonoBehaviour
         {
             playerHealth.TakeDamage(10);
             lastHit = DateTime.Now;
+            restartHandler.CheckDeathCondition();
         }
         else if (collision.gameObject.CompareTag("Bullet"))
         {
@@ -33,7 +35,7 @@ public class OpponentCollisionBehaviour : MonoBehaviour
 
             if (ownHealth.GetHealth() <= 0)
             {
-                Destroy(self);
+                Destroy(gameObject);
                 tracker.UpdateScore(OPPONENT_SCORE);
             }
         }

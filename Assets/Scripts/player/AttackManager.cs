@@ -4,15 +4,15 @@ using System;
 public class AttackManager : MonoBehaviour
 {
     public GameObject fireballPrefab;
-    private GameObject player;
     private PlayerMovement playerMovement;
+    private HealthBehaviour playerHealth;
     private float PLAYER_OFFSET = 1.5f;
     private DateTime lastSpell = DateTime.Now;
 
     public void Start()
     {
-        player = GameObject.Find("Player");
-        playerMovement = player.GetComponent<PlayerMovement>();
+        playerMovement = gameObject.GetComponent<PlayerMovement>();
+        playerHealth = gameObject.GetComponent<HealthBehaviour>();
     }
 
     public void Update()
@@ -26,7 +26,7 @@ public class AttackManager : MonoBehaviour
     public void Fire()
     {
         var now = DateTime.Now;
-        if (now > lastSpell.AddMilliseconds(FireballBehaviour.SPELL_OFFSET_MS))
+        if (now > lastSpell.AddMilliseconds(FireballBehaviour.SPELL_OFFSET_MS) && !playerHealth.isDead())
         {
             SpawnFireball();
             lastSpell = now;
@@ -35,15 +35,8 @@ public class AttackManager : MonoBehaviour
 
     private void SpawnFireball()
     {
-        if (player == null) {
-        Debug.Log("HIIIII");
-        }
-
-        if (playerMovement == null) {
-        Debug.Log("HIIIII2");
-        }
         var lastPlayerDirection = playerMovement.LastDirection;
-        var spawnPosition = player.transform.localPosition + PLAYER_OFFSET * new Vector3(lastPlayerDirection.x, lastPlayerDirection.y, 0);
+        var spawnPosition = gameObject.transform.localPosition + PLAYER_OFFSET * new Vector3(lastPlayerDirection.x, lastPlayerDirection.y, 0);
         var fireball = Instantiate(fireballPrefab, spawnPosition, Quaternion.identity);
         fireball.GetComponent<FireballBehaviour>().Initialize(lastPlayerDirection);
     }

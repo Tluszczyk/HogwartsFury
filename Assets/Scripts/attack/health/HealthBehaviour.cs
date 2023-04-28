@@ -9,6 +9,11 @@ public class HealthBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetMaxHealth();
+    }
+
+    public void SetMaxHealth()
+    {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }

@@ -7,8 +7,10 @@ public class OpponentSpawnerLogic : MonoBehaviour
 
     public GameObject spawnTerritory;
     private List<GameObject> spawnAreas = new List<GameObject>();
+    private RestartHandler restartHandler;
 
     public void Start() {
+        this.restartHandler = GameObject.Find("RestartHandler").GetComponent<RestartHandler>();
         foreach (Transform child in spawnTerritory.transform) {
             if ( child.tag == "OpponentSpawnArea" )
                 spawnAreas.Add(child.gameObject);
@@ -31,6 +33,6 @@ public class OpponentSpawnerLogic : MonoBehaviour
 
         var player = GameObject.Find("Player");
         opponent.GetComponent<OpponentMovement>().SetTarget(player.transform);
-        opponent.GetComponent<OpponentCollisionBehaviour>().Init(player.GetComponent<HealthBehaviour>(), player.GetComponent<ScoreTracker>());
+        opponent.GetComponent<OpponentCollisionBehaviour>().Init(player.GetComponent<HealthBehaviour>(), player.GetComponent<ScoreTracker>(), restartHandler);
     }
 }
