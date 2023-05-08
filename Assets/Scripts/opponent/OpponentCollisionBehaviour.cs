@@ -11,6 +11,7 @@ public class OpponentCollisionBehaviour : MonoBehaviour
     private ScoreTracker tracker;
     private DateTime lastHit = DateTime.Now;
     private RestartHandler restartHandler;
+    private bool isColliding = false;
 
     public void Init(HealthBehaviour playerHealth, ScoreTracker tracker, RestartHandler restartHandler)
     {
@@ -20,6 +21,17 @@ public class OpponentCollisionBehaviour : MonoBehaviour
         this.restartHandler = restartHandler;
     }
 
+    void Update() {
+        var now = DateTime.Now;
+        if (this.isColliding && now > lastHit.AddMilliseconds(ATTACK_DELAY_MS))
+        {
+            playerHealth.TakeDamage(10);
+            lastHit = now;
+            restartHandler.CheckDeathCondition();
+        }
+
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -27,6 +39,8 @@ public class OpponentCollisionBehaviour : MonoBehaviour
             playerHealth.TakeDamage(10);
             lastHit = DateTime.Now;
             restartHandler.CheckDeathCondition();
+
+            this.isColliding = true;
         }
         else if (collision.gameObject.CompareTag("Bullet"))
         {
@@ -42,13 +56,21 @@ public class OpponentCollisionBehaviour : MonoBehaviour
     }
 
 
-    void OnTriggerStay2D(Collider2D collision)
+    // void OnTriggerStay2D(Collider2D collision)
+    // {
+    //     var now = DateTime.Now;
+    //     if (collision.gameObject.CompareTag("Player") && now > lastHit.AddMilliseconds(ATTACK_DELAY_MS))
+    //     {
+    //         playerHealth.TakeDamage(10);
+    //         lastHit = now;
+    //     }
+    // }
+
+    void OnTriggerExit2D(Collider2D collision)
     {
-        var now = DateTime.Now;
-        if (collision.gameObject.CompareTag("Player") && now > lastHit.AddMilliseconds(ATTACK_DELAY_MS))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            playerHealth.TakeDamage(10);
-            lastHit = now;
+            this.isColliding = false;
         }
     }
 }
