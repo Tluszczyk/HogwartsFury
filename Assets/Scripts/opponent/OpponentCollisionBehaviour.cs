@@ -44,7 +44,11 @@ public class OpponentCollisionBehaviour : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Bullet"))
         {
-            ownHealth.TakeDamage(10);
+            var spell = collision.gameObject.GetComponent<FireballBehaviour>().spell;
+            var damage = (Damage) Enum.Parse(typeof(Damage), spell.ToString());
+
+            ownHealth.TakeDamage( (int)damage ); 
+            
             Destroy(collision.gameObject);
 
             if (ownHealth.GetHealth() <= 0)

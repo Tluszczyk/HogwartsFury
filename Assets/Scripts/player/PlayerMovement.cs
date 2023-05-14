@@ -78,4 +78,12 @@ public class PlayerMovement : MonoBehaviour
             return velocity;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Chest"))
+        {
+            gameObject.GetComponent<AttackManager>().ChooseSpell(Spell.FireballGreen);
+        }
+    }
 }

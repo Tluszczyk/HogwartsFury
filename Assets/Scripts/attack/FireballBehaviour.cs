@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class FireballBehaviour : MonoBehaviour
 {
@@ -8,9 +9,12 @@ public class FireballBehaviour : MonoBehaviour
     private SpriteRenderer fireballRenderer;
     private MapBehaviour map;
     public GameObject self;
+    public Spell spell;
 
-    public void Initialize(Vector2 direction)
+    public void Initialize(Vector2 direction, Spell spell)
     {
+        this.spell = spell;
+
         fireballBody = GetComponent<Rigidbody2D>();
         fireballRenderer = GetComponent<SpriteRenderer>();
         fireballBody.velocity = DEFAULT_SPEED * direction.normalized;

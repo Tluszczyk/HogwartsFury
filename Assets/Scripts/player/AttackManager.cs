@@ -1,9 +1,13 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+
 
 public class AttackManager : MonoBehaviour
 {
-    public GameObject fireballPrefab;
+    public List<GameObject> spellPrefabList;
+    public Spell activeSpell = Spell.FireballRed;
+
     private PlayerMovement playerMovement;
     private HealthBehaviour playerHealth;
     private float PLAYER_OFFSET = 1.5f;
@@ -33,11 +37,18 @@ public class AttackManager : MonoBehaviour
         }
     }
 
+    public void ChooseSpell(Spell spell)
+    {
+        activeSpell = spell;
+    }
+
     private void SpawnFireball()
     {
+        var spellPrefab = spellPrefabList[ (int)activeSpell ];
+
         var lastPlayerDirection = playerMovement.LastDirection;
         var spawnPosition = gameObject.transform.localPosition + PLAYER_OFFSET * new Vector3(lastPlayerDirection.x, lastPlayerDirection.y, 0);
-        var fireball = Instantiate(fireballPrefab, spawnPosition, Quaternion.identity);
-        fireball.GetComponent<FireballBehaviour>().Initialize(lastPlayerDirection);
+        var fireball = Instantiate(spellPrefab, spawnPosition, Quaternion.identity);
+        fireball.GetComponent<FireballBehaviour>().Initialize(lastPlayerDirection, activeSpell);
     }
 }

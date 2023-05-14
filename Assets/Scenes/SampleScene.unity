@@ -17033,6 +17033,23 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4652285643705646795, guid: de2c327e0eaa5da09ad5575c62df247b,
+        type: 3}
+      propertyPath: spellPrefabList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4652285643705646795, guid: de2c327e0eaa5da09ad5575c62df247b,
+        type: 3}
+      propertyPath: spellPrefabList.Array.data[0]
+      value: 
+      objectReference: {fileID: 3078999218519702845, guid: 906b6f788ad4025e38f2587a58b90d5e,
+        type: 3}
+    - target: {fileID: 4652285643705646795, guid: de2c327e0eaa5da09ad5575c62df247b,
+        type: 3}
+      propertyPath: spellPrefabList.Array.data[1]
+      value: 
+      objectReference: {fileID: 3078999218519702845, guid: 485ac64de995659429cbd6ed6671ee01,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 2666274704860379707, guid: de2c327e0eaa5da09ad5575c62df247b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: de2c327e0eaa5da09ad5575c62df247b, type: 3}
