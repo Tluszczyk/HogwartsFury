@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class OpponentMovement : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class OpponentMovement : MonoBehaviour
 
     public const int DEFAULT_SPEED = 1;
     public const float MAX_DISTANCE = 1f;
+
+    private float currentSpeed = DEFAULT_SPEED;
+    private DateTime slowStartTime;
+    private float slowDuration = 5000;
 
 
     public void SetTarget(Transform target) {
@@ -31,6 +36,11 @@ public class OpponentMovement : MonoBehaviour
             opponentBody.velocity = Vector2.zero;
         }
 
+        if ( DateTime.Now > slowStartTime.AddMilliseconds(slowDuration) ) {
+            currentSpeed = DEFAULT_SPEED;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
+        }
+
         FlipAccordingToDirection();
     }
 
@@ -49,6 +59,11 @@ public class OpponentMovement : MonoBehaviour
         } else {
             return velocity;
         }
+    }
+
+    public void SlowDown() {
+        currentSpeed = DEFAULT_SPEED / 2;
+        slowStartTime = DateTime.Now;
     }
 
     bool IsCloseToTarget() {

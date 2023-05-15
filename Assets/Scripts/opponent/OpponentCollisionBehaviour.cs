@@ -56,6 +56,12 @@ public class OpponentCollisionBehaviour : MonoBehaviour
                 Destroy(gameObject);
                 tracker.UpdateScore(OPPONENT_SCORE);
             }
+
+            if (spell == Spell.FireballBlue) {
+                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                gameObject.GetComponent<OpponentMovement>().SlowDown();
+            }
+
         }
     }
 

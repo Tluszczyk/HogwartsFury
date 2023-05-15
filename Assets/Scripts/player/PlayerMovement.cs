@@ -83,7 +83,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Chest"))
         {
-            gameObject.GetComponent<AttackManager>().ChooseSpell(Spell.FireballGreen);
+            gameObject.GetComponent<AttackManager>().ChooseSpell(
+                (Spell)Random.Range(1, System.Enum.GetValues(typeof(Spell)).Length)
+            );
         }
     }
 }

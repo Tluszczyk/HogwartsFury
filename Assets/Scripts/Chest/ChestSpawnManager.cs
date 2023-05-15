@@ -4,7 +4,7 @@ using System;
 public class ChestSpawnManager : MonoBehaviour
 {
     private DateTime lastChestTime = DateTime.Now;
-    public float chestSpawnTime = 20f;
+    public float chestSpawnTime = 30f;
 
     public GameObject chestPrefab;
 

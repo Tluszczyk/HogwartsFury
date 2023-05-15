@@ -8,6 +8,9 @@ public class AttackManager : MonoBehaviour
     public List<GameObject> spellPrefabList;
     public Spell activeSpell = Spell.FireballRed;
 
+    public float MAX_SPELL_DURATION = 5000;
+    private DateTime chestCollectedTime;
+
     private PlayerMovement playerMovement;
     private HealthBehaviour playerHealth;
     private float PLAYER_OFFSET = 1.5f;
@@ -25,6 +28,10 @@ public class AttackManager : MonoBehaviour
         {
             Fire();
         }
+
+        if ( activeSpell != Spell.FireballRed && DateTime.Now > chestCollectedTime.AddMilliseconds(MAX_SPELL_DURATION) ) {
+            ChooseSpell(Spell.FireballRed);
+        }
     }
 
     public void Fire()
@@ -40,6 +47,7 @@ public class AttackManager : MonoBehaviour
     public void ChooseSpell(Spell spell)
     {
         activeSpell = spell;
+        chestCollectedTime = DateTime.Now;
     }
 
     private void SpawnFireball()
