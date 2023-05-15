@@ -222,8 +222,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34008c7d2e96721f960bde0226c432e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireballPrefab: {fileID: 3078999218519702845, guid: 906b6f788ad4025e38f2587a58b90d5e,
-    type: 3}
+  spellPrefabList: []
+  activeSpell: 0
+  defaultSprite: {fileID: 21300000, guid: 4d2ea4fc1ac5b49be99fa7b4c543767d, type: 3}
+  attackSprite: {fileID: 21300000, guid: 62033af4723ceecada964c03dbe7feed, type: 3}
+  MAX_SPELL_DURATION: 5000
 --- !u!114 &2666274704860379707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,8 +239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34008c7d2e96721f960bde0226c432e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireballPrefab: {fileID: 3078999218519702845, guid: 906b6f788ad4025e38f2587a58b90d5e,
-    type: 3}
+  spellPrefabList: []
+  activeSpell: 0
+  defaultSprite: {fileID: 0}
+  attackSprite: {fileID: 0}
+  MAX_SPELL_DURATION: 5000
 --- !u!1 &1088459392876694094
 GameObject:
   m_ObjectHideFlags: 0

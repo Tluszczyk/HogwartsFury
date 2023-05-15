@@ -8,11 +8,15 @@ public class AttackManager : MonoBehaviour
     public List<GameObject> spellPrefabList;
     public Spell activeSpell = Spell.FireballRed;
 
+    public Sprite defaultSprite;
+    public Sprite attackSprite;
+
     public float MAX_SPELL_DURATION = 5000;
     private DateTime chestCollectedTime;
 
     private PlayerMovement playerMovement;
     private HealthBehaviour playerHealth;
+    private SpriteRenderer playerRenderer;
     private float PLAYER_OFFSET = 1.5f;
     private DateTime lastSpell = DateTime.Now;
 
@@ -20,6 +24,7 @@ public class AttackManager : MonoBehaviour
     {
         playerMovement = gameObject.GetComponent<PlayerMovement>();
         playerHealth = gameObject.GetComponent<HealthBehaviour>();
+        playerRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     public void Update()
@@ -28,8 +33,13 @@ public class AttackManager : MonoBehaviour
         {
             Fire();
         }
+        else
+        {
+            SetDefaultSprite();
+        }
 
-        if ( activeSpell != Spell.FireballRed && DateTime.Now > chestCollectedTime.AddMilliseconds(MAX_SPELL_DURATION) ) {
+        if (activeSpell != Spell.FireballRed && DateTime.Now > chestCollectedTime.AddMilliseconds(MAX_SPELL_DURATION))
+        {
             ChooseSpell(Spell.FireballRed);
         }
     }
@@ -41,6 +51,15 @@ public class AttackManager : MonoBehaviour
         {
             SpawnFireball();
             lastSpell = now;
+            playerRenderer.sprite = attackSprite;
+        }
+    }
+
+    private void SetDefaultSprite()
+    {
+        if (DateTime.Now > lastSpell.AddMilliseconds(1.2 * FireballBehaviour.SPELL_OFFSET_MS) && !playerHealth.isDead())
+        {
+            playerRenderer.sprite = defaultSprite;
         }
     }
 
@@ -52,7 +71,7 @@ public class AttackManager : MonoBehaviour
 
     private void SpawnFireball()
     {
-        var spellPrefab = spellPrefabList[ (int)activeSpell ];
+        var spellPrefab = spellPrefabList[(int)activeSpell];
 
         var lastPlayerDirection = playerMovement.LastDirection;
         var spawnPosition = gameObject.transform.localPosition + PLAYER_OFFSET * new Vector3(lastPlayerDirection.x, lastPlayerDirection.y, 0);

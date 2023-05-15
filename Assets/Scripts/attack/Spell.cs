@@ -1,11 +1,13 @@
-public enum Spell {
+public enum Spell
+{
     FireballRed,
     FireballGreen,
     FireballBlue,
 }
 
-public enum Damage : int {
+public enum Damage : int
+{
     FireballRed = 10,
     FireballGreen = 20,
-    FireballBlue = 50
+    FireballBlue = 15
 }

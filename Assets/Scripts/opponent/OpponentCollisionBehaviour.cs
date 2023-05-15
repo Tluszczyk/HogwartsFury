@@ -21,7 +21,8 @@ public class OpponentCollisionBehaviour : MonoBehaviour
         this.restartHandler = restartHandler;
     }
 
-    void Update() {
+    void Update()
+    {
         var now = DateTime.Now;
         if (this.isColliding && now > lastHit.AddMilliseconds(ATTACK_DELAY_MS))
         {
@@ -45,21 +46,21 @@ public class OpponentCollisionBehaviour : MonoBehaviour
         else if (collision.gameObject.CompareTag("Bullet"))
         {
             var spell = collision.gameObject.GetComponent<FireballBehaviour>().spell;
-            var damage = (Damage) Enum.Parse(typeof(Damage), spell.ToString());
+            var damage = (Damage)Enum.Parse(typeof(Damage), spell.ToString());
 
-            ownHealth.TakeDamage( (int)damage ); 
-            
+            ownHealth.TakeDamage((int)damage);
+
             Destroy(collision.gameObject);
+
+            if (spell == Spell.FireballBlue)
+            {
+                gameObject.GetComponent<OpponentMovement>().SlowDown();
+            }
 
             if (ownHealth.GetHealth() <= 0)
             {
                 Destroy(gameObject);
                 tracker.UpdateScore(OPPONENT_SCORE);
-            }
-
-            if (spell == Spell.FireballBlue) {
-                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
-                gameObject.GetComponent<OpponentMovement>().SlowDown();
             }
 
         }
