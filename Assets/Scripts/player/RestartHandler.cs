@@ -27,7 +27,8 @@ public class RestartHandler : MonoBehaviour
 
     public void CheckDeathCondition()
     {
-        if (playerHealth.isDead()) {
+        if (playerHealth.isDead())
+        {
             UpdateEndMenu();
         }
     }
@@ -41,7 +42,7 @@ public class RestartHandler : MonoBehaviour
             endMenu.SetActive(true);
         }
         else
-        {   
+        {
             scoreBoard.SetActive(true);
             endMenu.SetActive(false);
         }
@@ -51,6 +52,7 @@ public class RestartHandler : MonoBehaviour
     {
         DestroyAll(GameObject.FindGameObjectsWithTag("Opponent"));
         DestroyAll(GameObject.FindGameObjectsWithTag("Bullet"));
+        DestroyAll(GameObject.FindGameObjectsWithTag("Chest"));
         scoreTracker.ResetScore();
         playerHealth.SetMaxHealth();
         playerTransform.position = Vector2.zero;
