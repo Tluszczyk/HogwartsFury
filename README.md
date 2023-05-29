@@ -52,3 +52,14 @@ na środku
 ## Atak
 Znaleźlismy wiele możliwości stworzenia alaków dla gracza i wybraliśmy dla tego projektu trzy, z których korzystamy.\
 ![alt text](./resources/attacks.png)
+
+## Assety
+Warstwę wizualną stworzyliśmy z wykorzystaniem dostępnych w internecie assetów. Część z nich pochodzi z Unity Store, a część z różnych serwisów z obrazkami. W niektórych przypadkach pobrane assety zostały przez nas dodatkowo zmodyfikowane.
+
+Źródła:
+
+https://www.clipartmax.com/middle/m2i8K9G6b1b1K9G6_harry-potter-harry-potter-pixel-art/
+
+https://www.artstation.com/artwork/3dRLkm
+
+https://www.pixilart.com/art/fire-bullet-a83dee9d75c547b
